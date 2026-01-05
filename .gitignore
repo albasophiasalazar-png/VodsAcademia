@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+
+# Database - IMPORTANTE: No subir bases de datos con información real
+*.db
+*.sqlite
+*.sqlite3
+database/*.db
+database/*.sqlite
+
+# Scripts con contraseñas o información sensible
+cambiar_password_admin.py
+
+# Streamlit
+.streamlit/secrets.toml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

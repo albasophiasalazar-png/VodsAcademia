@@ -1,0 +1,2 @@
+# Este archivo asegura que el directorio database/ exista en el repositorio
+# La base de datos real (*.db) está en .gitignore y no se sube al repo
