@@ -230,46 +230,47 @@ def main():
         fecha_mostrar = formatear_fecha(clase.get('fecha_sesion'))
         numero_sesion = clase.get('numero_sesion', clase.get('orden', ''))
         
-        with st.expander(f"📅 Sesión {numero_sesion} - {clase['nombre']} ({fecha_mostrar})", expanded=False):
+        # Crear fila con información de la sesión y botón
+        col_info, col_boton = st.columns([4, 1])
+        
+        with col_info:
+            st.markdown(f"**Sesión {numero_sesion}: {clase['nombre']}**")
+            st.markdown(f"📅 {fecha_mostrar}")
             if clase['descripcion']:
-                st.markdown(f"**Descripción:** {clase['descripcion']}")
-            
-            st.markdown(f"**Fecha:** {fecha_mostrar}")
-            st.markdown("---")
-            
+                st.markdown(f"*{clase['descripcion']}*")
+        
+        with col_boton:
             # Verificar si hay URL de video
             if clase['url_video'] and clase['url_video'].strip():
-                # Botón para abrir video en nueva pestaña
-                st.markdown("### 🎥 Grabación de la Sesión")
                 url_video = clase['url_video'].strip()
-                
                 # Crear botón HTML personalizado que abre en nueva pestaña
                 button_html = f"""
-                    <div style="display: flex; justify-content: center; margin: 20px 0;">
-                        <a href="{url_video}" target="_blank" style="text-decoration: none;">
+                    <div style="display: flex; align-items: center; height: 100%; padding-top: 8px;">
+                        <a href="{url_video}" target="_blank" style="text-decoration: none; width: 100%;">
                             <button style="
                                 background-color: #FF4B4B;
                                 color: white;
-                                padding: 12px 32px;
-                                font-size: 18px;
+                                padding: 10px 20px;
+                                font-size: 16px;
                                 font-weight: 600;
                                 border: none;
                                 border-radius: 8px;
                                 cursor: pointer;
-                                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
                                 transition: all 0.3s ease;
+                                width: 100%;
                             " onmouseover="this.style.backgroundColor='#E63946'; this.style.transform='scale(1.05)';" 
                                onmouseout="this.style.backgroundColor='#FF4B4B'; this.style.transform='scale(1)';">
-                                🎬 Ver Grabación (Nueva Pestaña)
+                                🎬 Ver Grabación
                             </button>
                         </a>
                     </div>
                 """
                 st.markdown(button_html, unsafe_allow_html=True)
-                st.info("💡 El video se abrirá en una nueva pestaña de tu navegador")
             else:
-                # No hay video disponible aún
-                st.info("📹 La grabación de esta sesión se subirá próximamente")
+                st.markdown("<div style='padding-top: 8px;'><em>📹 Próximamente</em></div>", unsafe_allow_html=True)
+        
+        st.markdown("---")
 
 if __name__ == "__main__":
     main()
